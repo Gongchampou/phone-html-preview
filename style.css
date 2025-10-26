@@ -1,0 +1,126 @@
+    :root{
+      --bg:#0b0f14; --panel:#111827; --muted:#9ca3af; --text:#e5e7eb; --accent:#60a5fa; --accent2:#34d399;
+      --divider:#1f2937; --phone:#0f172a; --bezel:#0b1220; --shadow:0 20px 40px rgba(0,0,0,.35);
+      --app-bg: linear-gradient(180deg,#0b0f14,#0a101a);
+    }
+    :root[data-theme='light']{
+      --bg:#f7f8fa; --panel:#ffffff; --muted:#6b7280; --text:#111827; --accent:#2563eb; --accent2:#059669;
+      --divider:#e5e7eb; --phone:#f3f4f6; --bezel:#e5e7eb; --shadow:0 12px 24px rgba(0,0,0,.12);
+      --app-bg: linear-gradient(180deg,#f8fafc,#eef2f7);
+    }
+    /* Light mode overall contrast fixes (non-editor UI) */
+    :root[data-theme='light'] .panel{ background:var(--panel); backdrop-filter:none; }
+    :root[data-theme='light'] .tabs{ background:rgba(0,0,0,.04); }
+    :root[data-theme='light'] .rightTop{ background:rgba(0,0,0,.04); }
+    :root[data-theme='light'] .toggle{ color:#374151; }
+    :root[data-theme='light'] .hint{ color:#374151; opacity:.75; }
+    :root[data-theme='light'] .btn{ color:#111827; }
+    :root[data-theme='light'] .tools label,
+    :root[data-theme='light'] .rightTop label{ color:#374151; }
+    /* Light mode: force top header text to black */
+    :root[data-theme='light'] header,
+    :root[data-theme='light'] header .title,
+    :root[data-theme='light'] header .sub{ color:#000 !important; }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--app-bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif}
+    /* Selection: Google-like blue transparent */
+    ::selection{background:rgba(66,133,244,.35)}
+    ::-moz-selection{background:rgba(66,133,244,.35)}
+    /* Ace editor selection override */
+    .ace_editor .ace_marker-layer .ace_selection{background:rgba(66,133,244,.35)}
+    .app{display:grid;grid-template-columns: var(--left-col, 1fr) 8px var(--right-col, 1fr);grid-template-areas:"left divider right";gap:12px;height:100%;padding:12px}
+    .divider{width:8px;cursor:col-resize;background:var(--divider);border-radius:10px}
+    .app.dragging .divider{background:#334155}
+    /* Swap layout (right | divider | left) */
+    .app.swap{grid-template-areas:"right divider left"}
+    header{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:8px 4px 4px}
+    header .title{font-size:18px;font-weight:700;letter-spacing:.2px;}
+    header .sub{color:var(--muted);font-size:12px}
+    .panel{background:rgba(17,24,39,.72);backdrop-filter:blur(8px);border:1px solid var(--divider);border-radius:16px;overflow:auto;display:flex;flex-direction:column;min-height:0}
+    #left{grid-area:left}
+    #right{grid-area:right}
+    #splitter{grid-area:divider}
+
+    .tabs{display:flex;align-items:center;gap:6px;padding:8px;background:rgba(255,255,255,.02);border-bottom:1px solid var(--divider)}
+    .tab{padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--muted);display:flex;align-items:center;gap:6px}
+    .tab.active{background:rgba(96,165,250,.15);color:var(--text)}
+    /* Light mode: clearer tab text and distinct active colors */
+    :root[data-theme='light'] .tabs .tab{ color:#374151; }
+    :root[data-theme='light'] .tabs .tab.active{ color:#000; }
+    :root[data-theme='light'] .tabs .tab[data-target="html"].active{ background:#fde68a; /* amber-200 */ }
+    :root[data-theme='light'] .tabs .tab[data-target="css"].active{  background:#bae6fd; /* sky-200 */ }
+    :root[data-theme='light'] .tabs .tab[data-target="js"].active{   background:#c7d2fe; /* indigo-200 */ }
+    /* Error badge + error state on tab */
+    .tab .badge{min-width:16px;height:16px;padding:0 5px;border-radius:8px;background:#ef4444;color:#fff;font-size:10px;line-height:16px;text-align:center;display:none}
+    .tab.error{color:#ef4444}
+    .tab.error .badge{display:inline-block}
+    /* VS Code-like squiggly underlines and gutter hints */
+    .ace_editor .ace_error{ text-decoration: underline wavy #e11d48 1px; text-underline-offset: 1px; }
+    .ace_editor .ace_warning{ text-decoration: underline wavy #f59e0b 1px; text-underline-offset: 1px; }
+    .ace_gutter-cell.ace_error{ border-left:2px solid #e11d48; }
+    .ace_gutter-cell.ace_warning{ border-left:2px solid #f59e0b; }
+    /* (Custom token underline removed; using native squiggles only) */
+    /* (Tooltip removed by request) */
+    .tools{margin-left:auto;display:flex;align-items:center;gap:8px}
+    .stopwatch{display:inline-flex;align-items:center;gap:6px;margin-left:6px}
+    .stopwatch .sw-time{font-variant-numeric:tabular-nums;font-size:12px;color:var(--text);opacity:.9;min-width:44px;text-align:center}
+    .stopwatch .btn.icon{padding:4px 6px}
+    :root[data-theme='light'] .stopwatch .sw-time{color:#111827;opacity:1}
+    
+    .btn.icon{padding:6px 8px}
+    .btn{background:var(--panel);border:1px solid var(--divider);padding:8px 10px;border-radius:10px;color:var(--text);cursor:pointer}
+    .btn:active{transform:translateY(1px)}
+    .toggle{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+    .editor{flex:1;min-height:0;overflow:auto}
+    #editor-html,#editor-css,#editor-js{position:relative;width:100%;height:100%;display:none}
+    #editor-html.active,#editor-css.active,#editor-js.active{display:block}
+
+    .rightTop{display:flex;gap:8px;align-items:center;padding:8px 10px;background:rgba(255,255,255,.02);border-bottom:1px solid var(--divider);position:sticky;top:0;z-index:5}
+    .rightTop label{font-size:12px;color:var(--muted)}
+    .rightTop select,.rightTop input[type="range"], .rightTop button{background:var(--panel);color:var(--text);border:1px solid var(--divider);border-radius:10px;padding:6px 8px}
+    .phoneWrap{flex:1;display:flex;align-items:center;justify-content:center;padding:16px}
+    /* Problems panel */
+    .problems{border-top:1px solid var(--divider);background:rgba(0,0,0,.04);max-height:160px;overflow:auto;font-size:12px}
+    .problems .item{display:flex;gap:8px;padding:8px 10px;border-bottom:1px solid var(--divider);align-items:flex-start;cursor:pointer}
+    .problems .item:hover{background:rgba(255,255,255,.05)}
+    .problems .ic{color:#ef4444}
+    .problems .msg{flex:1;color:var(--text)}
+    .problems .loc{color:var(--muted);font-variant-numeric:tabular-nums}
+    :root[data-theme='light'] .problems{background:rgba(0,0,0,.03)}
+
+    .phone{
+      position:relative;display:flex;align-items:center;justify-content:center;
+      background:var(--phone);box-shadow:var(--shadow);
+      border: 12px solid var(--bezel);
+      overflow:hidden;
+      transform-origin:center center;
+    }
+    /* Device-specific sizes */
+    .phone.device-phone{ width:360px;height:794px;border-radius:38px; }
+    .phone.device-tablet{ width:600px;height:800px;border-radius:20px; }
+    .notch{
+      position:absolute;top:6px;left:50%;transform:translateX(-50%);
+      width:160px;height:24px;background:#050a16;border-radius:0 0 16px 16px;opacity:.9;
+      border:1px solid #0b1022;border-top:none
+    }
+    /* Tablets usually don't have a phone notch */
+    .device-tablet .notch{ display:none; }
+    .screen{position:absolute;inset:0;border-radius:26px;overflow:hidden;background:var(--panel)}
+    .screen iframe{width:100%;height:100%;border:0;background:white;display:block;}
+    .hint{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:10px;color:#cbd5e1;opacity:.7}
+
+    /* Settings Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:50}
+    .modal-backdrop.open{display:flex}
+    .modal{background:var(--panel);border:1px solid var(--divider);border-radius:14px;width:min(440px, 92vw);box-shadow:var(--shadow);color:var(--text)}
+    .modal header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--divider)}
+    .modal header h3{margin:0;font-size:16px}
+    .modal .content{padding:14px}
+    .field{display:grid;grid-template-columns: 1fr auto;gap:10px;align-items:center;margin:8px 0}
+    .field label{font-size:12px;color:var(--muted);grid-column:1/-1;margin-bottom:6px}
+    .row{display:flex;gap:10px;align-items:center}
+    .row input[type="range"]{flex:1}
+    .row input[type="number"]{width:80px;background:var(--panel);border:1px solid var(--divider);border-radius:10px;color:var(--text);padding:6px 8px}
+    .modal footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 14px;border-top:1px solid var(--divider)}
+    .modal .btn{background:var(--panel);border:1px solid var(--divider);padding:8px 12px;border-radius:10px;color:var(--text);cursor:pointer}
+    .modal .btn.primary{background:#1d4ed8;border-color:#1e40af}
